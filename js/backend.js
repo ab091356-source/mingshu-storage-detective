@@ -1,0 +1,31 @@
+import {createClient} from '../vendor/supabase.js';
+import {runtimeConfig} from './runtime-config.js';
+import {createDurableQueue,mergeProgress} from './sync.js';
+
+export function validPublicKey(key){if(!key||key.startsWith('sb_secret_'))return false;if(key.startsWith('sb_publishable_'))return true;try{return JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='anon';}catch{return false;}}
+export const configured=!!runtimeConfig.supabaseUrl&&validPublicKey(runtimeConfig.publishableKey);
+export const client=configured?createClient(runtimeConfig.supabaseUrl,runtimeConfig.publishableKey,{global:{fetch:(input,init)=>fetch(input,{...init,signal:init?.signal||AbortSignal.timeout(10000)})},auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true},realtime:{params:{eventsPerSecond:5}}}):null;
+export async function rpc(name,args={}){if(!client)throw Error('Supabase尚未設定公開金鑰');const {data,error}=await client.rpc(name,args);if(error)throw error;return data;}
+export async function createBridge({course,user,bundle,onStatus,onAccessLost,onData}){
+ const key=`mingshu-v2:${user.id}:${course.id}`,role=bundle.role,manager=role!=='student';let revisions={},lastState=null,lastSuccess=null,location={island:null,task:''},stopped=false,channel,pollTimer,heartTimer,refreshing=false;
+ const store=localStorage;const readCache=()=>{try{return JSON.parse(store.getItem(key+':state')||'null');}catch{return null;}};
+ let rows=await loadRows();for(const r of rows)revisions[r.island]=r.revision;
+ const queue=createDurableQueue({key:key+':outbox',send:async job=>rpc('apply_learning_event',{p_course:course.id,p_id:job.id,p_island:job.island,p_kind:job.kind,p_payload:job.payload,p_revision:job.revision}),onStatus:s=>{onStatus({...s,lastSuccess});if(s.status==='denied')onAccessLost(s.error);},onApplied:(job,result)=>{revisions[job.island]=result.revision;lastSuccess=Date.now();}});
+ async function loadRows(){const {data,error}=await client.from('learning_progress').select('*').eq('course_id',course.id).eq('user_id',user.id);if(error)throw error;return data;}
+ function enqueue(island,kind,payload){if(manager)return;const pending=queue.jobs.filter(j=>j.island===island).length;queue.enqueue({id:crypto.randomUUID(),island,kind,payload:structuredClone(payload),revision:(revisions[island]||0)+pending});}
+ function trackState(s){store.setItem(key+':state',JSON.stringify(s));if(!lastState){lastState=structuredClone(s);return;}if(manager){lastState=structuredClone(s);return;}for(const i of s.visited)if(!lastState.visited.includes(i))enqueue(i,'visit',{});for(let i=0;i<6;i++){if(s.missions[i]&&JSON.stringify(s.missions[i])!==JSON.stringify(lastState.missions[i]))enqueue(i,'mission',s.missions[i]);if(s.works[i]?.saved&&JSON.stringify(s.works[i])!==JSON.stringify(lastState.works[i]))enqueue(i,'worksheet',s.works[i]);}lastState=structuredClone(s);queueMicrotask(()=>queue.flush());}
+ async function refresh(){if(stopped||refreshing||!navigator.onLine)return;refreshing=true;try{const courses=await rpc('my_courses');const current=courses.find(c=>c.id===course.id);if(!current?.access){onAccessLost('課程使用權已停止、到期或場次已關閉');return;}const {data:controls,error}=await client.from('course_controls').select('*').eq('course_id',course.id);if(error)throw error;
+ const controlKey=a=>JSON.stringify(a.map(c=>[c.island,c.island_open,c.mission_open,c.quiz_open,c.worksheet_open]).sort((a,b)=>a[0]-b[0]));if(controlKey(controls)!==controlKey(bundle.controls)){bundle=await rpc('course_bundle',{p_course:course.id});onData({bundle});}
+ rows=await loadRows();const pending=queue.jobs;for(const r of rows)if(!pending.some(j=>j.island===r.island))revisions[r.island]=r.revision;lastSuccess=Date.now();if(lastState)lastState=mergeProgress(lastState,rows,pending);onData({rows,pending});if(!pending.length)onStatus({status:'synced',count:0,lastSuccess});await queue.flush();}catch(e){onStatus({status:'offline',count:queue.jobs.length,error:e.message,lastSuccess});}finally{refreshing=false;}}
+ async function heartbeat(){if(stopped||manager||!navigator.onLine)return;try{await rpc('heartbeat',{p_course:course.id,p_island:location.island,p_task:location.task,p_visible:document.visibilityState==='visible'});}catch(e){onStatus({status:'offline',count:queue.jobs.length,error:e.message,lastSuccess});}}
+ const online=()=>{refresh();heartbeat();};addEventListener('online',online);addEventListener('offline',()=>onStatus({status:'offline',count:queue.jobs.length,lastSuccess}));document.addEventListener('visibilitychange',heartbeat);
+ channel=client.channel('mingshu:'+course.id+':'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'learning_progress',filter:'course_id=eq.'+course.id},refresh).on('postgres_changes',{event:'*',schema:'public',table:'course_controls',filter:'course_id=eq.'+course.id},refresh).on('postgres_changes',{event:'*',schema:'public',table:'memberships',filter:'course_id=eq.'+course.id},refresh).subscribe(status=>{if(status==='CHANNEL_ERROR'||status==='TIMED_OUT')onStatus({status:'polling',count:queue.jobs.length,lastSuccess});});
+ pollTimer=setInterval(refresh,runtimeConfig.pollMs);heartTimer=setInterval(heartbeat,runtimeConfig.heartbeatMs);heartbeat();
+ return {mode:'supabase',role,scope:key,course,user,bundle,controls:()=>bundle.controls,
+ initialState(base){const cache=readCache();const s=cache&&queue.jobs.length?cache:mergeProgress(base,rows);lastState=structuredClone(s);return s;},trackState,
+ location(island,task){location={island,task};heartbeat();},quiz(island,answers){enqueue(island,'quiz',{answers});queue.flush();},
+ async resolveConflict(discard){const latest=await loadRows(),rev=Object.fromEntries(latest.map(r=>[r.island,r.revision]));queue.resolve(rev,discard);if(discard){onData({rows:latest,pending:[]});}else await queue.flush();},
+ async dropRejected(){queue.dropFirst();const latest=await loadRows();queue.resolve(Object.fromEntries(latest.map(r=>[r.island,r.revision])));await queue.flush();},stop(){stopped=true;clearInterval(pollTimer);clearInterval(heartTimer);client.removeChannel(channel);removeEventListener('online',online);document.removeEventListener('visibilitychange',heartbeat);},flush:()=>queue.flush(),pending:()=>queue.jobs,
+ async signOut(){this.stop();await client.auth.signOut();window.location.reload();}
+ };
+}

@@ -1,0 +1,26 @@
+{
+  "version": "2026-11-01.rooms-v3.1",
+  "requiredSceneVersion": 3,
+  "cloudRelease": "20261101-rooms-v3.1",
+  "files": {
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index.html": "e0d20e245371ce9ffd0e665b527beaee010962733e1ea9ed7a0f4685d7500789",
+    "portal.css": "7c0338c89d9fa627168d3c690d102eb2fc0909d452020cd16efec66a55098d9f",
+    "README.md": "4f70a3608f82117ae59380849e0797b0ce81854bd100a55596975defef6ea13a",
+    "scene-tasks.css": "5c936a0384fab8229a0971570990475f0cf1d0b446401622bcb78367a8ca2b26",
+    "styles.css": "0533a6ed515326d7859b70d2201fb45110b671f5463755307a588d6d30d8cbd3",
+    "data/catalog.json": "f778fde8a767f9ead6773e59d5a307bdadec56f99f8c4731b71af9c998beaa9e",
+    "js/afternoon.js": "a1a38435d9437669cdc750a63523aa5cb25dc420b078652b17d2d0008093bd5b",
+    "js/backend.js": "bd089ebb5c5a6a1f9c4c093592135938bb2745687575f1d85ef20597460177ae",
+    "js/portal.js": "a773608c7f3e563db4da8ed1a11526102441dbc0f3bd5e5266335f679e4c117a",
+    "js/release-config.js": "8787776c3dd90d163343d7e20deea5e3e4779187582d59d03590fd82d9a6a186",
+    "js/runtime-config.js": "6ab8267a42b0acf058162ca3109b166b3dd227a51f6ea48d21551e5ce74c8b57",
+    "js/sync.js": "2dfd5be12babbf5c6cb6634bd2596c3e0ffc74599deb13e9d5dda9f1e318075e",
+    "js/world.js": "a05e4a04dd5bfa102c9e6ff57da4575d4e4f7b50b79ec63c2ac4bba694fb385f",
+    "vendor/OrbitControls.js": "5a44a9e86a2a0fb11933eed69bc2cd33c76a496854c1aed6ed776efa87d7b064",
+    "vendor/SUPABASE-LICENSE.txt": "334dd6820e2eaeab2064e7c59001b810566728a28a41a7c1dbf69bbee17d0936",
+    "vendor/supabase.js": "a6eb850d887fb65805f8c3650a68ae646c86d660fe88283e528c669f2d643368",
+    "vendor/THREE-LICENSE.txt": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+    "vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
+  }
+}

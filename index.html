@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="morning">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f0e4"><meta name="description" content="明舒的收納偵探島：從家庭情境練習觀察、傾聽與整理決策。"><title>明舒的收納偵探島</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2365744e'/%3E%3Ctext x='12' y='44' font-size='40'%3E⌂%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./portal.css"><link rel="stylesheet" href="./scene-tasks.css"><script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script></head>
+<body>
+<a class="skip" href="#place-list">跳到島嶼清單</a>
+<section id="portal" aria-label="課程登入"></section>
+<main id="app" hidden>
+ <div id="world" aria-label="可旋轉縮放的收納偵探群島"></div>
+ <div class="vignette" aria-hidden="true"></div>
+ <header class="topbar"><a class="brand" href="#" aria-label="回到群島全景"><span class="brand-icon">⌂</span><span><small>明舒陪你慢慢走 · MINIATURE WORLD</small><strong>明舒的收納偵探島</strong></span></a><div class="top-actions"><span id="clock" class="clock"></span><button id="list-toggle">☷ <span>島嶼導覽</span></button><button id="teacher-open">講師模式</button><button id="settings-toggle" aria-label="開啟外觀與動態設定">⚙</button></div></header>
+ <section class="intro" aria-label="課程介紹"><div class="eyebrow"><span></span> 一場關於空間，也關於人的練習</div><h1>整理之前，<br>先看見生活。</h1><p>跟著小舒走進六個家庭情境，<br>練習觀察、傾聽，再一起找到方法。</p><button id="start" class="primary">開始探索 <span>↗</span></button><div class="intro-note">看見空間的問題，也看見生活的故事。</div></section>
+ <div id="loading" role="status">正在佈置你的小島…</div><div id="fallback" role="status" hidden></div><div id="labels"></div><div id="actors"></div>
+ <aside id="settings" class="floating-card" hidden aria-label="外觀與動態設定"><div class="section-label">把小島調成舒服的樣子</div><fieldset><legend>介面底色</legend><div id="themes" class="segmented"><button data-theme="auto">自動</button><button data-theme="morning">晨光</button><button data-theme="mist">海霧</button><button data-theme="night">夜海</button></div></fieldset><fieldset><legend>小島時段</legend><div id="times" class="segmented"><button data-time="day">白天</button><button data-time="dusk">黃昏</button><button data-time="night">夜晚</button><button data-time="auto">自動流動</button><button data-time="realtime">跟現在同步</button></div></fieldset><label class="check"><input id="motion" type="checkbox">減少動態（停止運鏡與環境動畫）</label><label class="check"><input id="quality" type="checkbox">低畫質（關閉陰影、減少居民與海面細節）</label><button id="replay">重播開場運鏡</button></aside>
+ <section id="navigator" class="floating-card navigator" aria-label="島嶼導覽" hidden><div class="row"><h2>探索手帳</h2><button id="list-close" aria-label="關閉島嶼導覽">✕</button></div><label class="search">⌕ <input id="search" type="search" placeholder="搜尋島嶼、內容或學習目標" aria-label="搜尋島嶼與教材"></label><div id="filters" class="segmented"></div><div id="place-list" tabindex="-1"></div></section>
+ <div id="dialogue" class="floating-card dialogue" hidden role="dialog" aria-labelledby="talk-name"></div>
+ <aside id="panel" hidden role="dialog" aria-modal="true" aria-labelledby="panel-title"><div class="panel-header"><div><div id="panel-kicker" class="eyebrow"></div><h2 id="panel-title"></h2></div><button id="panel-close" aria-label="關閉內容面板">✕</button></div><div id="panel-tabs" class="tabs" role="tablist"></div><div id="panel-body" class="panel-body" role="tabpanel" tabindex="0"></div></aside>
+ <footer class="world-footer"><div class="progress-card"><span class="compass">✥</span><div><small>你的探索旅程</small><div><b id="progress-label">0 / 6 座島</b><span id="progress-sub">慢慢走，每一步都算數。</span></div><div class="track"><i id="progress-bar"></i></div></div></div><div class="world-tools"><button id="overview" title="回到全景">⤢ <span>回到全景</span></button><button id="bag-toggle">♧ <span>背包</span> <b id="shell-count">3</b></button><button id="help">?</button></div></footer>
+ <aside id="bag" class="floating-card bag" hidden><h2>海島小背包</h2><p class="muted">純前端交換遊戲，不涉及金錢。</p><div id="bag-items"></div><button id="bag-reset">清空背包</button></aside>
+ <div id="toast" role="status" aria-live="polite"></div><div id="fatal" hidden role="alert"></div>
+</main><div id="print-root"></div><script>
+if(location.protocol==='file:'){document.getElementById('portal').hidden=true;document.getElementById('app').hidden=false;
+ document.getElementById('loading').hidden=true;
+ const notice=document.getElementById('fatal');notice.hidden=false;
+ notice.innerHTML='<h2>請先啟動本機網站</h2><p>直接雙擊 HTML 時，瀏覽器會擋住程式與教材。請回到上一層資料夾，雙擊「啟動網站.cmd」，保留命令視窗，再開啟下方網址。</p><p><a href="http://127.0.0.1:8765/">開啟明舒的收納偵探島（本機預覽）</a></p><p>這只在自己的電腦執行，沒有上架網站。</p>';
+}
+</script><script type="module" src="./js/portal.js"></script>
+</body></html>
