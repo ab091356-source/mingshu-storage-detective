@@ -5,7 +5,7 @@
   "classroomLogin": true,
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "index.html": "df0df86183cf07c4018f4daa4a4637adca8e319e725e60af01c80ab5b8d6621b",
+    "index.html": "233b9de82bd07280da27689b9d7c9f9bb2c6c5d49f48efc2acc524170da8659d",
     "portal.css": "7c0338c89d9fa627168d3c690d102eb2fc0909d452020cd16efec66a55098d9f",
     "scene-tasks.css": "5c936a0384fab8229a0971570990475f0cf1d0b446401622bcb78367a8ca2b26",
     "styles.css": "0533a6ed515326d7859b70d2201fb45110b671f5463755307a588d6d30d8cbd3",
@@ -13,7 +13,7 @@
     "js/afternoon.js": "a1a38435d9437669cdc750a63523aa5cb25dc420b078652b17d2d0008093bd5b",
     "js/backend.js": "bd089ebb5c5a6a1f9c4c093592135938bb2745687575f1d85ef20597460177ae",
     "js/classroom-client.js": "2b9f578900292b03f49f90521353afa240057a0a1ac13c24bc98b0fb4e9f412a",
-    "js/portal.js": "08a4e664b4478bd5d089aed65f1f17a636129fd00859cd95698e33ff1e65c7f6",
+    "js/portal.js": "239152b76726cb9b26dda5cd053fa1b46d2302fd8205470ed8c5980b886d047f",
     "js/release-config.js": "aa8a21451f3ef03ddd22301ffb8183739e4d52c56b4d7038b4d100f7d8b04743",
     "js/runtime-config.js": "be6e9966fcd7d02b03bb14a2dc7e5085281f4868e78c9ba9c78eb6076be52967",
     "js/sync.js": "2dfd5be12babbf5c6cb6634bd2596c3e0ffc74599deb13e9d5dda9f1e318075e",
@@ -26,5 +26,6 @@
     "mobile-layout.css": "da3d64031400aab6caacb0b11f2b00f4f0f4dd2de5749609fe428344197117c1",
     "js/mobile-layout.js": "03732ce1baf5d59ad132c050c83d71fde9d3ef45d5a6d28f0e1b92903283f1eb"
   },
-  "mobileLayoutRevision": "20261103-menu2"
+  "mobileLayoutRevision": "20261103-menu2",
+  "displayNameRevision": "20261103-mingshu"
 }
