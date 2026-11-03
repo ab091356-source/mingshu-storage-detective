@@ -53,3 +53,14 @@ async function dashboard(course){if(dashboardChannel)client.removeChannel(dashbo
 setInterval(()=>{if(!lastDashboard||!$('#dashboard-stats'))return;const connected=!!lastDashboardAt&&Date.now()-lastDashboardAt<12000;const now=Date.parse(lastDashboard.server_time)+(Date.now()-lastDashboardAt);document.querySelectorAll('[data-online-status]').forEach(e=>{const l=lastDashboard.learners.find(l=>l.user_id===e.dataset.onlineStatus);e.textContent=onlineStatus({...l,visible:l.online},now,connected);});if(!connected&&$('#dashboard-connection'))$('#dashboard-connection').textContent='同步中斷，在線狀態待確認。最後更新：'+new Date(lastDashboardAt).toLocaleTimeString('zh-TW');},2000);
 let recovery=location.hash.includes('type=recovery');if(client)client.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY'){recovery=true;setTimeout(passwordSettings,0);}if(event==='SIGNED_OUT'){bridge?.stop();window.__mingshu?.invalidate();login();}});
 await localCheck();if(configured){if(recovery){const {data}=await client.auth.getUser();if(data.user)passwordSettings();else login();}else await enterAccount();}else login();
+
+// Normalize the instructor credit in dynamically loaded onboarding cards.
+function syncInstructorCredit(){
+ for(const el of document.querySelectorAll('.welcome-card .eyebrow')){
+  for(const node of el.childNodes)if(node.nodeType===Node.TEXT_NODE&&node.nodeValue.includes('小舒'))node.nodeValue=node.nodeValue.replaceAll('小舒','明舒');
+ }
+}
+new MutationObserver(records=>{
+ if(records.some(r=>(r.target.nodeType===Node.ELEMENT_NODE?r.target:r.target.parentElement)?.closest('.welcome-card')||[...r.addedNodes].some(n=>n.nodeType===Node.ELEMENT_NODE&&(n.matches('.welcome-card')||n.querySelector('.welcome-card')))))syncInstructorCredit();
+}).observe(document.body,{childList:true,subtree:true,characterData:true});
+syncInstructorCredit();
