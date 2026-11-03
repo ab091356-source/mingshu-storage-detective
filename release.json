@@ -5,9 +5,8 @@
   "classroomLogin": true,
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "index.html": "3f2cacdf13dabb45ff8956a1e9a86f829e9d7a49d9efec9cd99e01ae98527fb5",
+    "index.html": "51da48fba75f1e1d97acf821dfd1a70b0c96ef1c4a3e7252b6897bb8c7c68a3f",
     "portal.css": "7c0338c89d9fa627168d3c690d102eb2fc0909d452020cd16efec66a55098d9f",
-    "README.md": "2ab16766440b118f5f7ce0b55fbdca25e3f451e44cffac38055810d723d46fe6",
     "scene-tasks.css": "5c936a0384fab8229a0971570990475f0cf1d0b446401622bcb78367a8ca2b26",
     "styles.css": "0533a6ed515326d7859b70d2201fb45110b671f5463755307a588d6d30d8cbd3",
     "data/catalog.json": "f778fde8a767f9ead6773e59d5a307bdadec56f99f8c4731b71af9c998beaa9e",
@@ -18,11 +17,14 @@
     "js/release-config.js": "aa8a21451f3ef03ddd22301ffb8183739e4d52c56b4d7038b4d100f7d8b04743",
     "js/runtime-config.js": "be6e9966fcd7d02b03bb14a2dc7e5085281f4868e78c9ba9c78eb6076be52967",
     "js/sync.js": "2dfd5be12babbf5c6cb6634bd2596c3e0ffc74599deb13e9d5dda9f1e318075e",
-    "js/world.js": "a05e4a04dd5bfa102c9e6ff57da4575d4e4f7b50b79ec63c2ac4bba694fb385f",
+    "js/world.js": "b2bf1eb428fa95ab05188648b344d1a4c2f1c7037d7e53b87179aa8de67515a2",
     "vendor/OrbitControls.js": "5a44a9e86a2a0fb11933eed69bc2cd33c76a496854c1aed6ed776efa87d7b064",
     "vendor/SUPABASE-LICENSE.txt": "334dd6820e2eaeab2064e7c59001b810566728a28a41a7c1dbf69bbee17d0936",
     "vendor/supabase.js": "a6eb850d887fb65805f8c3650a68ae646c86d660fe88283e528c669f2d643368",
     "vendor/THREE-LICENSE.txt": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
-    "vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495"
-  }
+    "vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+    "mobile-layout.css": "fcd3846d3c791c4bfa9c8bc9daca00896dc4c050d55ddc93cb41357b6da5d107",
+    "js/mobile-layout.js": "d1835abe543ad62f69be36afe6f6376a9f756d18b3b5a43c3ee9593a1979beae"
+  },
+  "mobileLayoutRevision": "20261103-mobile"
 }

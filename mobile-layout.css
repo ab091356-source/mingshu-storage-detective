@@ -1,0 +1,48 @@
+/* Mobile layout repair: normal document flow, original desktop rules untouched. */
+@media screen and (max-width:900px){
+ html,body{height:auto;min-height:100%;overflow-x:clip;overflow-y:auto}
+ #app{position:relative;inset:auto;min-height:100dvh;display:flex;flex-direction:column;gap:16px;padding:12px 12px max(18px,env(safe-area-inset-bottom));isolation:isolate;background:transparent}
+ #world{position:fixed;inset:0;z-index:-2} .vignette{position:fixed;z-index:-1;opacity:.65}
+ .topbar{position:relative;inset:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;z-index:10}
+ .brand{min-width:0;flex:1 1 100%;gap:10px}.brand-icon{flex:0 0 40px;height:44px}
+ .brand strong{font-size:17px;white-space:normal;line-height:1.5}.brand small{font-size:9px;max-width:none}
+ .top-actions{width:100%;flex-wrap:wrap;gap:8px}.top-actions button{font-size:14px!important;min-height:44px;padding:10px 12px!important;flex:1}
+ .top-actions #list-toggle span{display:inline}.clock{position:static!important;order:10;flex-basis:100%;padding:7px 10px;font-size:12px!important;text-align:center}
+ .intro,body.world-exploring .intro{display:block;position:relative;inset:auto;max-width:none;margin:0;padding:18px;border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--surface) 97%,transparent);pointer-events:auto;z-index:1}
+ .intro .eyebrow{font-size:11px}.intro h1{font-size:28px;line-height:1.5;letter-spacing:1px;margin:8px 0 12px}.intro p{max-width:none;font-size:15px;line-height:1.8;color:var(--ink)}
+ .intro button{min-width:0;font-size:15px;min-height:48px;margin-top:14px}.intro-note{display:block;font-size:12px;max-width:none;line-height:1.7}
+ .account-tools{display:grid;grid-template-columns:1fr;max-width:none;gap:8px;margin-top:14px}.intro .account-tools button{margin:0;min-width:0;width:100%;font-size:14px;padding:10px;justify-content:center;white-space:normal}
+ #labels{position:relative;inset:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;overflow:visible;pointer-events:auto;z-index:1}
+ #labels .island-label{position:static!important;left:auto!important;top:auto!important;transform:none!important;white-space:normal;min-height:60px;width:100%;padding:12px 8px;font-size:14px;line-height:1.6;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--surface);overflow-wrap:anywhere}
+ #labels .island-label b{font-size:12px;flex-shrink:0}#labels .island-label.center{grid-column:1/-1}
+ #actors{position:fixed;z-index:0} /* Background characters remain reachable in free map view on desktop. */
+ .world-footer{position:relative;inset:auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:auto;z-index:1}
+ .progress-card{max-width:none;flex:1 1 100%;min-width:0;padding:14px}.progress-card small{font-size:12px}.progress-card b{font-size:15px}.progress-card>div{flex:1;min-width:0}
+ .track{min-width:0}.world-tools{width:100%;display:flex;gap:8px}.world-tools button{flex:1;min-height:48px;font-size:14px}.world-tools button span{display:inline}.world-tools #help{display:block;flex:0 0 48px}
+ #sync-status{position:relative;inset:auto;transform:none;margin:10px auto 16px;max-width:calc(100% - 24px);font-size:12px;padding:10px;overflow-wrap:anywhere;z-index:1}
+ .floating-card{overscroll-behavior:contain}
+ #navigator{position:fixed;inset:0!important;width:100%;height:100dvh;max-height:none!important;border:0;border-radius:0;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));z-index:120;display:grid;grid-template-rows:auto auto auto minmax(0,1fr);overflow:hidden;gap:12px}
+ #navigator .row{min-width:0}#navigator h2{font-size:22px}#navigator .search{margin:0}#navigator input{font-size:16px}#filters{margin:0;gap:6px}#filters button{font-size:13px;min-height:44px;flex:1 0 auto}
+ #place-list{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:3px 4px 12px}#place-list .place{margin:0 0 10px;min-height:70px;white-space:normal}#place-list .place strong{font-size:16px}
+ #settings,#bag,#dialogue{position:fixed;inset:12px!important;width:auto;max-height:calc(100dvh - 24px);height:fit-content;overflow:auto;z-index:120;padding:18px}
+ #settings .segmented button{flex:1 0 auto} .mobile-overlay-close{display:block;margin-left:auto;margin-bottom:10px}
+ #panel,#panel:has(.scene-task){position:fixed;inset:0;width:100%;height:100dvh;max-height:none;border-radius:0;z-index:120}
+ .panel-header{flex-shrink:0;padding:12px 14px}.panel-header h2{font-size:22px}.panel-header>div{min-width:0}.panel-header button{flex-shrink:0}
+ .panel-body,#panel:has(.scene-task) .panel-body{padding:14px 12px max(24px,env(safe-area-inset-bottom));min-width:0;min-height:0;overflow-x:hidden;overflow-y:auto}
+ .tabs{min-height:48px}.tabs button{font-size:13px;min-height:44px}.field input,.field select,.field textarea{font-size:16px}
+ .scene-toolbar,.scene-submit,.scene-footer{flex-wrap:wrap}.scene-toolbar button{flex:1;min-height:44px}.scene-presets button,.scene-map-tabs button{flex:1 1 100%}
+ .scene-options button,.task-option{font-size:15px;overflow-wrap:anywhere}.guided-actions .button-row button{flex:1 1 120px;font-size:14px}
+ .object-caption{max-width:100%;white-space:normal;line-height:1.3}.room-scene{min-height:200px}.scene-object{min-width:44px;min-height:44px}
+ .portal-shell{padding:16px 12px 32px}.portal-card{padding:20px 16px}.portal-brand h1{font-size:20px}.portal-card>h2{font-size:23px}.portal-card form{min-width:0}.portal-card button{white-space:normal}
+ .welcome-overlay{overflow:auto;align-items:safe center}.welcome-card{max-height:calc(100dvh - 32px);overflow:auto;padding:20px}
+ #loading{position:fixed;max-width:calc(100% - 32px);z-index:130}#fallback{position:relative;inset:auto;margin:0;z-index:1}
+ #toast{position:fixed;bottom:16px;z-index:160;max-width:calc(100% - 24px)}
+ #fatal{position:fixed;inset:12px;overflow:auto}
+ body.panel-open .intro{display:block;opacity:1}
+ body.mobile-modal-open{overflow:hidden}body.mobile-modal-open #app{pointer-events:none}
+ body.mobile-modal-open #navigator,body.mobile-modal-open #settings,body.mobile-modal-open #bag,body.mobile-modal-open #dialogue,body.mobile-modal-open #panel{pointer-events:auto}
+ #mobile-modal-shade{position:fixed;inset:0;border:0;border-radius:0;background:#172e2b99;z-index:115;width:100%;height:100dvh;padding:0}
+}
+@media screen and (min-width:901px){#mobile-modal-shade,.mobile-overlay-close{display:none!important}}
+
+@media screen and (max-width:900px){#mobile-modal-shade{pointer-events:auto}#world canvas{touch-action:pan-y!important}}
