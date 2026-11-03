@@ -60,3 +60,23 @@
  #nav-account-tools-slot #account-tools button{width:100%;min-height:44px}
  #navigator #place-list{min-height:90px;overscroll-behavior:contain}
 }
+
+/* Compact mobile home: keep all island entries close to the top. */
+@media screen and (max-width:900px){
+ #app{gap:10px;padding-top:10px}
+ .topbar{gap:8px}
+ .brand{gap:8px}.brand-icon{height:36px;flex-basis:36px;font-size:24px}
+ .brand strong{font-size:16px;line-height:1.4}.brand small{font-size:9px}
+ .top-actions{gap:6px}.top-actions button{min-height:44px;padding:8px 10px!important}
+ .clock{padding:3px 8px;font-size:11px!important}
+ .intro,body.world-exploring .intro{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:12px;margin:0}
+ .intro .eyebrow,.intro .intro-note{display:none}
+ .intro h1{font-size:18px;line-height:1.4;letter-spacing:0;margin:0;font-weight:500}
+ .intro h1 br{display:none}
+ .intro p{grid-column:1/-1;margin:0;font-size:13px;line-height:1.6}
+ .intro p br{display:none}
+ .intro #start{grid-column:2;grid-row:1;min-height:44px;margin:0;padding:9px 10px;font-size:14px;white-space:nowrap}
+ body.world-exploring .intro p{display:none}
+ #labels{gap:8px;padding:0}
+ #labels .island-label{min-height:52px;padding:10px 8px;font-size:14px}
+}

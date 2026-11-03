@@ -5,7 +5,7 @@
   "classroomLogin": true,
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "index.html": "7a9390510095866adce3b9f1502e6e0599108490900ac26a8bbb1a8b61944cbd",
+    "index.html": "c307480a14de1f76baa32e7348a6275dd6e7adf90c0efd2947af2bc8a2e5e5b2",
     "portal.css": "7c0338c89d9fa627168d3c690d102eb2fc0909d452020cd16efec66a55098d9f",
     "scene-tasks.css": "5c936a0384fab8229a0971570990475f0cf1d0b446401622bcb78367a8ca2b26",
     "styles.css": "0533a6ed515326d7859b70d2201fb45110b671f5463755307a588d6d30d8cbd3",
@@ -23,9 +23,10 @@
     "vendor/supabase.js": "a6eb850d887fb65805f8c3650a68ae646c86d660fe88283e528c669f2d643368",
     "vendor/THREE-LICENSE.txt": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
     "vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
-    "mobile-layout.css": "da3d64031400aab6caacb0b11f2b00f4f0f4dd2de5749609fe428344197117c1",
+    "mobile-layout.css": "f827186bdd2b03717d3904e79b8100ee1e032dd887d8199a114b77de2e38d1ec",
     "js/mobile-layout.js": "03732ce1baf5d59ad132c050c83d71fde9d3ef45d5a6d28f0e1b92903283f1eb"
   },
   "mobileLayoutRevision": "20261103-menu2",
-  "displayNameRevision": "20261103-mingshu2"
+  "displayNameRevision": "20261103-mingshu2",
+  "mobileHomeRevision": "20261103-compact3"
 }
