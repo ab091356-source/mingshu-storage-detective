@@ -46,3 +46,17 @@
 @media screen and (min-width:901px){#mobile-modal-shade,.mobile-overlay-close{display:none!important}}
 
 @media screen and (max-width:900px){#mobile-modal-shade{pointer-events:auto}#world canvas{touch-action:pan-y!important}}
+
+/* Menu close hotfix: original action nodes retain their own handlers. */
+#nav-account-tools-slot{display:none}
+@media(max-width:900px){
+ #navigator{grid-template-rows:auto auto auto minmax(90px,1fr) auto;overflow-y:auto}
+ #navigator>.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center}
+ #navigator>.row h2{font-size:18px;margin:0}
+ #navigator #list-toggle{display:block;font-size:13px;padding:10px 8px;min-height:44px;white-space:nowrap}
+ #navigator #list-close{display:block;width:auto;min-width:72px;min-height:44px;white-space:nowrap;padding:10px 8px;font-size:14px}
+ #nav-account-tools-slot{display:block;max-height:30dvh;overflow-y:auto;min-height:0}
+ #nav-account-tools-slot #account-tools{margin:0;padding-top:8px;display:grid;grid-template-columns:1fr;gap:8px}
+ #nav-account-tools-slot #account-tools button{width:100%;min-height:44px}
+ #navigator #place-list{min-height:90px;overscroll-behavior:contain}
+}
