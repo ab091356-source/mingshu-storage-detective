@@ -4,7 +4,7 @@ import {OrbitControls} from '../vendor/OrbitControls.js';
 export async function createWorld(api){
 const {state,data}=api,container=document.querySelector('#world'),labelRoot=document.querySelector('#labels'),actorRoot=document.querySelector('#actors');
 if(new URLSearchParams(location.search).has('no3d'))throw Error('Requested accessible text mode');
-const mobile=()=>innerWidth<=650;
+const mobile=()=>innerWidth<=900;
 const canvas=document.createElement('canvas');
 const gl=canvas.getContext('webgl2',{antialias:true,alpha:false,powerPreference:'high-performance'})||canvas.getContext('webgl',{antialias:true,alpha:false});
 if(!gl)throw Error('WebGL unavailable; text mode remains available');
@@ -115,7 +115,7 @@ renderer.domElement.addEventListener('click',e=>{const tap=pendingTap;pendingTap
 
 function project(v){const p=v.clone().project(camera);return {x:(p.x+1)*innerWidth/2,y:(1-p.y)*innerHeight/2,visible:p.z<1&&p.z>-1&&Math.abs(p.x)<1.1&&Math.abs(p.y)<1.1};}
 function positionElement(el,pos,show=true){const p=project(pos);el.hidden=!p.visible||!show;if(!el.hidden){el.style.left=p.x+'px';el.style.top=p.y+'px';}return p;}
-function layoutLabels(now){const taken=[];const sorted=[...labels].sort((a,b)=>a.index===6?-1:b.index===6?1:a.world.distanceTo(camera.position)-b.world.distanceTo(camera.position));for(const l of sorted){const p=project(l.world);const el=l.el;let visible=p.visible&&p.y>(mobile()?245:92)&&p.y<innerHeight-100;if(visible){const w=el.offsetWidth||130,h=44;p.x=Math.max(w/2+8,Math.min(innerWidth-w/2-8,p.x));const candidates=[0,-48,48,-96,96,-144,144];let found=false;for(const dy of candidates){const rect={x:p.x-w/2,y:p.y+dy-h/2,w,h};if(rect.x<8||rect.x+w>innerWidth-8||rect.y<(mobile()?240:85)||rect.y+h>innerHeight-90)continue;if(taken.every(t=>rect.x+rect.w<t.x-5||rect.x>t.x+t.w+5||rect.y+rect.h<t.y-5||rect.y>t.y+t.h+5)){el.style.left=p.x+'px';el.style.top=p.y+dy+'px';taken.push(rect);found=true;break;}}visible=found;}el.hidden=!visible;}
+function layoutLabels(now){const taken=[];const sorted=[...labels].sort((a,b)=>a.index===6?-1:b.index===6?1:a.world.distanceTo(camera.position)-b.world.distanceTo(camera.position));for(const l of sorted){if(mobile()){l.el.hidden=false;continue;}const p=project(l.world);const el=l.el;let visible=p.visible&&p.y>(mobile()?245:92)&&p.y<innerHeight-100;if(visible){const w=el.offsetWidth||130,h=44;p.x=Math.max(w/2+8,Math.min(innerWidth-w/2-8,p.x));const candidates=[0,-48,48,-96,96,-144,144];let found=false;for(const dy of candidates){const rect={x:p.x-w/2,y:p.y+dy-h/2,w,h};if(rect.x<8||rect.x+w>innerWidth-8||rect.y<(mobile()?240:85)||rect.y+h>innerHeight-90)continue;if(taken.every(t=>rect.x+rect.w<t.x-5||rect.x>t.x+t.w+5||rect.y+rect.h<t.y-5||rect.y>t.y+t.h+5)){el.style.left=p.x+'px';el.style.top=p.y+dy+'px';taken.push(rect);found=true;break;}}visible=found;}el.hidden=!visible;}
 for(const s of shells)positionElement(s.el,s.world,Date.now()-(state.shells[s.index]||0)>=20000&&!flight);
 for(const c of characters){const show=c.g.visible&&!flight;positionElement(c.el,c.g.position.clone().add(new THREE.Vector3(0,.6,0)),show);}
 for(const a of animals)positionElement(a.el,a.g.position.clone().add(new THREE.Vector3(0,.35,0)),!flight&&a.g.visible);
