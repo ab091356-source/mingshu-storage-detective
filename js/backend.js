@@ -23,7 +23,7 @@ export async function createBridge({course,user,bundle,onStatus,onAccessLost,onD
  pollTimer=setInterval(refresh,runtimeConfig.pollMs);heartTimer=setInterval(heartbeat,runtimeConfig.heartbeatMs);heartbeat();
  return {mode:'supabase',role,scope:key,course,user,bundle,controls:()=>bundle.controls,
  initialState(base){const cache=readCache();const s=cache&&queue.jobs.length?cache:mergeProgress(base,rows);lastState=structuredClone(s);return s;},trackState,
- location(island,task){location={island,task};heartbeat();},quiz(island,answers){enqueue(island,'quiz',{answers});queue.flush();},
+ location(island,task){location={island,task};heartbeat();},quiz(island,answers){enqueue(island,'quiz',{answers});queue.flush();},checkQuiz:(island,answers)=>rpc('check_quiz',{p_course:course.id,p_island:island,p_answers:answers}),
  async resolveConflict(discard){const latest=await loadRows(),rev=Object.fromEntries(latest.map(r=>[r.island,r.revision]));queue.resolve(rev,discard);if(discard){onData({rows:latest,pending:[]});}else await queue.flush();},
  async dropRejected(){queue.dropFirst();const latest=await loadRows();queue.resolve(Object.fromEntries(latest.map(r=>[r.island,r.revision])));await queue.flush();},stop(){stopped=true;clearInterval(pollTimer);clearInterval(heartTimer);client.removeChannel(channel);removeEventListener('online',online);document.removeEventListener('visibilitychange',heartbeat);},flush:()=>queue.flush(),pending:()=>queue.jobs,
  async signOut(){this.stop();await client.auth.signOut();window.location.reload();}
