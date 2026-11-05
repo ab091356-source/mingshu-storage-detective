@@ -13,7 +13,7 @@ function restore(){for(const [e,v] of inertBefore)e.inert=v;inertBefore.clear();
 function hide(e){if(!e||e.hidden)return;if(e.id==='panel'){document.querySelector('#panel-close')?.click();if(!e.hidden)e.hidden=true;document.body.classList.remove('panel-open');}else if(e.id==='dialogue'){e.querySelector('#talk-close,#animal-close')?.click();if(!e.hidden)e.hidden=true;document.body.classList.remove('npc-open');}else e.hidden=true;}
 function arrange(){if(mobile.matches&&visible(nav)){const row=nav.querySelector('.row');if(toggle.parentElement!==row)row.insertBefore(toggle,closeButton);}else if(toggleHome.parentNode&&toggle.previousSibling!==toggleHome)toggleHome.after(toggle);
  const tools=document.querySelector('#account-tools');if(tools){if(!toolsHome){toolsHome=document.createComment('account tools home');tools.before(toolsHome);}if(mobile.matches){if(tools.parentElement!==toolsSlot)toolsSlot.append(tools);}else if(toolsHome.parentNode&&tools.previousSibling!==toolsHome)toolsHome.after(tools);}
- const text=mobile.matches&&visible(nav)?'☷ 收合導覽':'☷ 島嶼導覽';if(toggle.textContent!==text)toggle.textContent=text;
+ const text=mobile.matches&&visible(nav)?'☷ 收合導覽':matchMedia('(max-width:650px)').matches?'☷ 導覽':'☷ 島嶼導覽';if(toggle.textContent!==text)toggle.textContent=text;
  if(closeButton.textContent!=='× 關閉')closeButton.textContent='× 關閉';
 }
 function sync(){frame=0;arrange();const portal=document.querySelector('#portal');const shown=mobile.matches&&visible(app)&&!visible(portal)?ids.map(id=>document.getElementById(id)).filter(visible):[];const next=shown.sort((a,b)=>(order.get(a)||0)-(order.get(b)||0)).at(-1)||null;
